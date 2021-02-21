@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/loadkrnis/price-tracker/issues"
   },
-  "homepage": "https://github.com/loadkrnis/price-tracker#readme"
+  "homepage": "https://github.com/loadkrnis/price-tracker#readme",
+  "dependencies": {
+    "puppeteer": "^7.1.0"
+  }
 }
