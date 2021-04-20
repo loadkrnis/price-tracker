@@ -16,6 +16,13 @@ async function autoScroll(page) {
             }, 100);
         });
     });
+    return true;
+}
+
+const sleep = (ms) => {
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
 }
 
 (async () => {
@@ -34,15 +41,17 @@ async function autoScroll(page) {
             height: 768
         });
         await page.goto('https://www.yanolja.com/hotel/r-910204/?advert=AREA&hotel=1');
+        await sleep(2000);
         await autoScroll(page);
         const find = await page.evaluate(() => {
-            const target = ['여의도 M 호텔', '호텔 더 디자이너스 여의도'];
+            const target = ['여의도 M 호텔', '호텔 더 디자이너스 홍대', '신라스테이 마포', '콘래드 서울'];
             const cardList = document.querySelectorAll('.PlaceListItemText_container__fUIgA.text-unit');
             let result = {};
             for (let i = 0; i < cardList.length; i++) {
-                hotelName = cardList[i].querySelector('.PlaceListTitle_text__2511B.small').textContent;
-                hotelPrice = cardList[i].querySelector('.PlacePriceInfo_salePrice__28VZD').textContent;
-                console.log(cardList[i].querySelector('.PlaceListTitle_text__2511B.small').textContent + " : " + cardList[i].querySelector('.PlacePriceInfo_salePrice__28VZD').textContent);
+                hotelName = cardList[i].querySelector('.PlaceListTitle_text__2511B.small').textContent.trim();
+                hotelPrice = cardList[i].querySelector('.PlacePriceInfo_salePrice__28VZD').textContent.trim();
+                console.log( hotelName +" : " + hotelPrice);
+                console.log(target);
                 if (target.indexOf(hotelName) >= 0) {
                     result[hotelName] = hotelPrice;
                 }
